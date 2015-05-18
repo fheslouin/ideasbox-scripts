@@ -1,7 +1,7 @@
 URL=http://download.kiwix.org/bin/0.9/kiwix-server-0.9-linux-armv5tejl.tar.bz2
 ARCHIVE=kiwix-server-0.9-linux-armv5tejl.tar.bz2
 BIN=kiwix-serve
-FROM_BIN="kiwix/bin/$BIN"
+FROM_BIN="$BIN"
 TO_BIN="/usr/local/bin/$BIN"
 LOG_FILE=install.log
 
