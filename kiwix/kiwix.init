@@ -20,7 +20,8 @@ DAEMON=/usr/local/bin/kiwix-serve
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 PORT=8002
-DATAPATH=/usr/local/share/kiwix/data/library/library.xml
+# Fix the path with the right ZIM file
+DATAPATH=/usr/local/share/kiwix/
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -36,7 +37,7 @@ DATAPATH=/usr/local/share/kiwix/data/library/library.xml
 # and status_of_proc is working.
 . /lib/lsb/init-functions
 
-DAEMON_ARGS="--library --daemon --port=$PORT $DATAPATH"
+DAEMON_ARGS="--daemon --port=$PORT $DATAPATH"
 
 #
 # Function that starts the daemon/service
