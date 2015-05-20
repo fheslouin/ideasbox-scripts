@@ -113,6 +113,7 @@ update_hostname() {
 		else
 			sudo sed -i "s/.*/$hostname/" /etc/hostname
 			sudo sed -ir "s/(127.0.1.1\s+)[a-zA-Z0-9_-]+/\1$hostname/" /etc/hosts
+			sudo echo 192.168.2.1 $hostname >> /etc/hosts
 			sudo hostname $hostname
 		fi
 	done
