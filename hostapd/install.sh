@@ -17,31 +17,6 @@ fi
 
 CONFIG_DIR="/etc/hostapd"
 
-# check if hostapd repository already add
-if [[ -z `cd /etc/apt && grep -ir hostapd 2> /dev/null` ]]; then
-
-	# add hostapd repository
-	if [[ -z "$VERBOSE" ]]; then
-		echo -n "Adding hostapd repository: "
-		sudo add-apt-repository -y ppa:andykimpe/hostapd &>> $LOG_FILE
-		check
-	else
-		sudo add-apt-repository -y ppa:andykimpe/hostapd 2>&1 | tee -a $LOG_FILE
-		echo "Adding hostapd repository: `check`"
-	fi
-
-	# update package list
-	if [[ -z "$VERBOSE" ]]; then
-		echo -n "Update package list and install hostapd: "
-		sudo apt-get update &>> $LOG_FILE
-		check
-	else
-		sudo apt-get update 2>&1 | tee -a $LOG_FILE
-		echo "Update package list and install hostapd: `check`"
-	fi
-
-fi
-
 # install hostapd
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Install hostapd: "
