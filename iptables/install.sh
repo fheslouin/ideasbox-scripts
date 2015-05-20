@@ -47,13 +47,19 @@ fi
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Create iptables rules: "
 	sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  &>> $LOG_FILE && \
+	sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  &>> $LOG_FILE && \
 	sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT &>> $LOG_FILE && \
+	sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT &>> $LOG_FILE && \
 	sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT &>> $LOG_FILE
+	sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT &>> $LOG_FILE
 	check
 else
 	sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 2>&1 | tee -a $LOG_FILE && \
+	sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE 2>&1 | tee -a $LOG_FILE && \
 	sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 2>&1 | tee -a $LOG_FILE && \
+	sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 2>&1 | tee -a $LOG_FILE && \
 	sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT 2>&1 | tee -a $LOG_FILE
+	sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT 2>&1 | tee -a $LOG_FILE
 	echo -n "Create iptables rules:	`check`"
 fi
 
