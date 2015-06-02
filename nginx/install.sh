@@ -12,3 +12,6 @@ else
 	sudo apt-get -y install nginx 2>&1 | tee -a $LOG_FILE
 	echo "Install nginx: `check`"
 fi
+
+#copy the optimized configuration to nginx
+cat nginx.conf > /etc/nginx/nginx.conf
